@@ -17,22 +17,22 @@ public class VenueHireSystem {
   public void createVenue(String venueName, String venueCode, String capacityInput, String hireFeeInput) {
     String venue[] = {venueName, venueCode, capacityInput, hireFeeInput};
 
-    if (venueName.trim() == "") {
+    if (venueName.trim() == "") { // Checks if venue name is empty or spaces only
       MessageCli.VENUE_NOT_CREATED_EMPTY_NAME.printMessage();
       return;
     }
 
     try {
-      if (Integer.parseInt(capacityInput) <= 0) {
+      if (Integer.parseInt(capacityInput) <= 0) { // Parses capacity to int and checks if it's non-positive
         MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("capacity", " positive");
         return;
       }
-    } catch (NumberFormatException e) {
+    } catch (NumberFormatException e) { // Catches error if capacity is not an integer
       MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("capacity", "");
       return;
     }
 
-    this.venues.add(venue);
+    this.venues.add(venue); // Executes if all input format checks pass
     MessageCli.VENUE_SUCCESSFULLY_CREATED.printMessage(venueName, venueCode);
   }
 
