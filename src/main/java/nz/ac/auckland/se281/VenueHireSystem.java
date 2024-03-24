@@ -16,8 +16,12 @@ public class VenueHireSystem {
 
   public void createVenue(String venueName, String venueCode, String capacityInput, String hireFeeInput) {
     String venue[] = {venueName, venueCode, capacityInput, hireFeeInput};
-    this.venues.add(venue);
-    MessageCli.VENUE_SUCCESSFULLY_CREATED.printMessage(venueName, venueCode);
+    if (venueName.trim() == "") {
+      MessageCli.VENUE_NOT_CREATED_EMPTY_NAME.printMessage();
+    } else {
+      this.venues.add(venue);
+      MessageCli.VENUE_SUCCESSFULLY_CREATED.printMessage(venueName, venueCode);
+    }
   }
 
   public void setSystemDate(String dateInput) {
