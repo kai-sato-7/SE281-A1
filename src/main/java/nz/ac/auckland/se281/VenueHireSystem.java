@@ -16,12 +16,24 @@ public class VenueHireSystem {
 
   public void createVenue(String venueName, String venueCode, String capacityInput, String hireFeeInput) {
     String venue[] = {venueName, venueCode, capacityInput, hireFeeInput};
+
     if (venueName.trim() == "") {
       MessageCli.VENUE_NOT_CREATED_EMPTY_NAME.printMessage();
-    } else {
-      this.venues.add(venue);
-      MessageCli.VENUE_SUCCESSFULLY_CREATED.printMessage(venueName, venueCode);
+      return;
     }
+
+    try {
+      if (Integer.parseInt(capacityInput) <= 0) {
+        MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("capacity", " positive");
+        return;
+      }
+    } catch (NumberFormatException e) {
+      MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("capacity", "");
+      return;
+    }
+
+    this.venues.add(venue);
+    MessageCli.VENUE_SUCCESSFULLY_CREATED.printMessage(venueName, venueCode);
   }
 
   public void setSystemDate(String dateInput) {
