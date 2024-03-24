@@ -2,8 +2,11 @@ package nz.ac.auckland.se281;
 
 import nz.ac.auckland.se281.Types.CateringType;
 import nz.ac.auckland.se281.Types.FloralType;
+import java.util.ArrayList;
 
 public class VenueHireSystem {
+
+  ArrayList<String[]> venues = new ArrayList<String[]>();
 
   public VenueHireSystem() {}
 
@@ -11,9 +14,10 @@ public class VenueHireSystem {
     // TODO implement this method
   }
 
-  public void createVenue(
-      String venueName, String venueCode, String capacityInput, String hireFeeInput) {
-    // TODO implement this method
+  public void createVenue(String venueName, String venueCode, String capacityInput, String hireFeeInput) {
+    String venue[] = {venueName, venueCode, capacityInput, hireFeeInput};
+    this.venues.add(venue);
+    MessageCli.VENUE_SUCCESSFULLY_CREATED.printMessage(venueName, venueCode);
   }
 
   public void setSystemDate(String dateInput) {
