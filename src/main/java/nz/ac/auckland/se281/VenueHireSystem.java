@@ -54,7 +54,7 @@ public class VenueHireSystem {
       return;
     }
 
-    for (String[] i : venues) { // Checks if venue code is already used by existing venues
+    for (String[] i : this.venues) { // Checks if venue code is already used by existing venues
       if (i[1].equals(venueCode)) {
         MessageCli.VENUE_NOT_CREATED_CODE_EXISTS.printMessage(venueCode, i[0]);
         return;
