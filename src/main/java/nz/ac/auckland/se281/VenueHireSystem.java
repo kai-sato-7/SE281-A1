@@ -23,6 +23,11 @@ public class VenueHireSystem {
       for (String[] i : this.venues) {
         MessageCli.VENUE_ENTRY.printMessage(i[0], i[1], i[2], i[3]);
       }
+    } else {
+      MessageCli.NUMBER_VENUES.printMessage("are", String.valueOf(this.venues.size()), "s");
+      for (String[] i : this.venues) {
+        MessageCli.VENUE_ENTRY.printMessage(i[0], i[1], i[2], i[3]);
+      }
     }
   }
 
