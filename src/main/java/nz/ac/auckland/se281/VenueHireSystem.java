@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class VenueHireSystem {
 
-  ArrayList<String[]> venues = new ArrayList<String[]>();
+  private ArrayList<String[]> venues = new ArrayList<String[]>();
 
   public VenueHireSystem() {}
 
