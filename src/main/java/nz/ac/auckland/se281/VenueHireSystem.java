@@ -32,6 +32,16 @@ public class VenueHireSystem {
       return;
     }
 
+    try {
+      if (Integer.parseInt(hireFeeInput) <= 0) { // Parses hire fee to int and checks if it's non-positive
+        MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("hire fee", " positive");
+        return;
+      }
+    } catch (NumberFormatException e) { // Catches error if hire fee is not an integer
+      MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("hire fee", "");
+      return;
+    }
+
     this.venues.add(venue); // Executes if all input format checks pass
     MessageCli.VENUE_SUCCESSFULLY_CREATED.printMessage(venueName, venueCode);
   }
