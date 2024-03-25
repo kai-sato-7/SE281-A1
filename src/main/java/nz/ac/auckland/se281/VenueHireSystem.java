@@ -42,6 +42,13 @@ public class VenueHireSystem {
       return;
     }
 
+    for (String[] i : venues) { // Checks if venue code is already used by existing venues
+      if (i[1].equals(venueCode)) {
+        MessageCli.VENUE_NOT_CREATED_CODE_EXISTS.printMessage(venueCode, i[0]);
+        return;
+      }
+    }
+
     this.venues.add(venue); // Executes if all input format checks pass
     MessageCli.VENUE_SUCCESSFULLY_CREATED.printMessage(venueName, venueCode);
   }
