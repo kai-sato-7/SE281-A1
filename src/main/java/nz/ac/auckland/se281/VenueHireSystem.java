@@ -15,7 +15,7 @@ public class VenueHireSystem {
   }
 
   public void createVenue(String venueName, String venueCode, String capacityInput, String hireFeeInput) {
-    String venue[] = {venueName, venueCode, capacityInput, hireFeeInput};
+    String venue[] = {venueName.trim(), venueCode.trim(), capacityInput, hireFeeInput};
 
     if (venueName.trim() == "") { // Checks if venue name is empty or spaces only
       MessageCli.VENUE_NOT_CREATED_EMPTY_NAME.printMessage();
