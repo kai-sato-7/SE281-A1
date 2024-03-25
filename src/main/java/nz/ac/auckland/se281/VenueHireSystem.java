@@ -17,6 +17,12 @@ public class VenueHireSystem {
       String venue[] = this.venues.get(0);
       MessageCli.NUMBER_VENUES.printMessage("is", "one", "");
       MessageCli.VENUE_ENTRY.printMessage(venue[0], venue[1], venue[2], venue[3]);
+    } else if (this.venues.size() < 10) {
+      String numbers[] = {"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
+      MessageCli.NUMBER_VENUES.printMessage("are", numbers[this.venues.size()], "s");
+      for (String[] i : this.venues) {
+        MessageCli.VENUE_ENTRY.printMessage(i[0], i[1], i[2], i[3]);
+      }
     }
   }
 
