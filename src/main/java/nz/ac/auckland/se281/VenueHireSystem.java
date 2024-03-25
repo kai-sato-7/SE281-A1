@@ -11,7 +11,9 @@ public class VenueHireSystem {
   public VenueHireSystem() {}
 
   public void printVenues() {
-    // TODO implement this method
+    if (venues.size() == 0) {
+      MessageCli.NO_VENUES.printMessage();
+    }
   }
 
   public void createVenue(String venueName, String venueCode, String capacityInput, String hireFeeInput) {
