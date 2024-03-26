@@ -133,6 +133,91 @@ public class MainTest {
       assertDoesNotContain("2 venue", true);
     }
 
+    @Test
+    public void T1_09_invalid_venue_spaces_only() throws Exception {
+      runCommands(CREATE_VENUE, "'   '", "NA", "80", "150");
+
+      assertContains("Venue not created: venue name must not be empty.");
+      assertDoesNotContain("Successfully created venue", true);
+    }
+
+    @Test
+    public void T1_10_invalid_capacity_not_number() throws Exception {
+      runCommands(CREATE_VENUE, "'Frugal Fiesta Hall'", "FFH", "eighty", "50");
+
+      assertContains("Venue not created: capacity must be a number.");
+      assertDoesNotContain("Successfully created venue", true);
+    }
+
+    @Test
+    public void T1_11_invalid_capacity_float() throws Exception {
+      runCommands(CREATE_VENUE, "'Frugal Fiesta Hall'", "FFH", "12.0", "150");
+
+      assertContains("Venue not created: capacity must be a number.");
+      assertDoesNotContain("Successfully created venue", true);
+    }
+
+    @Test
+    public void T1_12_invalid_base_hire_fee_float() throws Exception {
+      runCommands(CREATE_VENUE, "'Frugal Fiesta Hall'", "FFH", "12", "150.5");
+
+      assertContains("Venue not created: hire fee must be a number.");
+      assertDoesNotContain("Successfully created venue", true);
+    }
+
+    @Test
+    public void T1_13_invalid_base_hire_fee_negative() throws Exception {
+      runCommands(CREATE_VENUE, "'Frugal Fiesta Hall'", "FFH", "1", "-123");
+
+      assertContains("Venue not created: hire fee must be a positive number.");
+      assertDoesNotContain("Successfully created venue", true);
+    }
+
+    @Test
+    public void T1_14_invalid_base_hire_fee_zero() throws Exception {
+      runCommands(CREATE_VENUE, "'Frugal Fiesta Hall'", "FFH", "1", "0");
+
+      assertContains("Venue not created: hire fee must be a positive number.");
+      assertDoesNotContain("Successfully created venue", true);
+    }
+
+    @Test
+    public void T1_15_invalid_capacity_zero() throws Exception {
+      runCommands(CREATE_VENUE, "'Frugal Fiesta Hall'", "FFH", "0", "150");
+
+      assertContains("Venue not created: capacity must be a positive number.");
+      assertDoesNotContain("Successfully created venue", true);
+    }
+
+    @Test
+    public void T1_16_nine_venues_saved() throws Exception {
+      runCommands(unpack(CREATE_NINE_VENUES, PRINT_VENUES));
+
+      assertContains("Successfully created venue 'Frugal Fiesta Hall' (FFH).");
+      assertContains("Successfully created venue 'Comfy Corner Events Centre' (CCEC).");
+      assertContains("Successfully created venue 'Cozy Comforts Venue' (CCV).");
+      assertContains("Successfully created venue 'Charming Charm Hall' (CCH).");
+      assertContains("Successfully created venue 'Refined Radiance Venue' (RRV).");
+      assertContains("Successfully created venue 'Classy Celebration Venue' (TGB).");
+      assertContains("Successfully created venue 'Grand Gala Gardens' (GGG).");
+      assertContains("Successfully created venue 'Exclusive Elegance Venue' (EEV).");
+      assertContains("Successfully created venue 'Luxurious Legacy Hall' (LLH).");
+
+      assertContains("There are nine venues in the system:");
+      assertContains("Frugal Fiesta Hall (FFH) - 80 people - $250 base hire fee");
+      assertContains("Comfy Corner Events Centre (CCEC) - 120 people - $500 base hire fee");
+      assertContains("Cozy Comforts Venue (CCV) - 200 people - $500 base hire fee");
+      assertContains("Charming Charm Hall (CCH) - 220 people - $500 base hire fee");
+      assertContains("Refined Radiance Venue (RRV) - 200 people - $500 base hire fee");
+      assertContains("Classy Celebration Venue (TGB) - 150 people - $1000 base hire fee");
+      assertContains("Grand Gala Gardens (GGG) - 260 people - $1500 base hire fee");
+      assertContains("Exclusive Elegance Venue (EEV) - 350 people - $1500 base hire fee");
+      assertContains("Luxurious Legacy Hall (LLH) - 800 people - $2500 base hire fee");
+
+      assertDoesNotContain("There is", true);
+      assertDoesNotContain("9 venues", true);
+    }
+
     public static class YourTests extends CliTest {
       public YourTests() {
         super(Main.class);
