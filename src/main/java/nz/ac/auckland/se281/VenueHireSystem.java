@@ -1,14 +1,16 @@
 package nz.ac.auckland.se281;
 
+import java.util.ArrayList;
 import nz.ac.auckland.se281.Types.CateringType;
 import nz.ac.auckland.se281.Types.FloralType;
-import java.util.ArrayList;
 
 public class VenueHireSystem {
 
   private ArrayList<String[]> venues = new ArrayList<String[]>();
+  private String systemDate = "";
 
-  public VenueHireSystem() {}
+  public VenueHireSystem() {
+  }
 
   public void printVenues() {
     if (this.venues.size() == 0) {
@@ -18,7 +20,9 @@ public class VenueHireSystem {
       MessageCli.NUMBER_VENUES.printMessage("is", "one", "");
       MessageCli.VENUE_ENTRY.printMessage(venue[0], venue[1], venue[2], venue[3]);
     } else if (this.venues.size() < 10) {
-      String numbers[] = {"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
+      String numbers[] = {
+          "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"
+      };
       MessageCli.NUMBER_VENUES.printMessage("are", numbers[this.venues.size()], "s");
       for (String[] i : this.venues) {
         MessageCli.VENUE_ENTRY.printMessage(i[0], i[1], i[2], i[3]);
@@ -31,8 +35,9 @@ public class VenueHireSystem {
     }
   }
 
-  public void createVenue(String venueName, String venueCode, String capacityInput, String hireFeeInput) {
-    String venue[] = {venueName.trim(), venueCode.trim(), capacityInput, hireFeeInput};
+  public void createVenue(
+      String venueName, String venueCode, String capacityInput, String hireFeeInput) {
+    String venue[] = { venueName.trim(), venueCode.trim(), capacityInput, hireFeeInput };
 
     if (venueName.trim() == "") { // Checks if venue name is empty or spaces only
       MessageCli.VENUE_NOT_CREATED_EMPTY_NAME.printMessage();
@@ -71,7 +76,8 @@ public class VenueHireSystem {
   }
 
   public void setSystemDate(String dateInput) {
-    // TODO implement this method
+    this.systemDate = dateInput;
+    MessageCli.DATE_SET.printMessage(dateInput);
   }
 
   public void printSystemDate() {
