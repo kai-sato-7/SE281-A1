@@ -110,6 +110,16 @@ public class VenueHireSystem {
       MessageCli.BOOKING_NOT_MADE_VENUE_NOT_FOUND.printMessage(options[0]);
       return;
     }
+
+    String[] systemDateArray = this.systemDate.split("/");
+    String systemDateYMD = systemDateArray[2] + systemDateArray[1] + systemDateArray[0];
+    String[] bookingDateArray = options[1].split("/");
+    String bookingDateYMD = bookingDateArray[2] + bookingDateArray[1] + bookingDateArray[0];
+    System.out.println(systemDateYMD + " " + bookingDateYMD);
+    if (systemDateYMD.compareTo(bookingDateYMD) > 0) {
+      MessageCli.BOOKING_NOT_MADE_PAST_DATE.printMessage(options[1], this.systemDate);
+      return;
+    }
   }
 
   public void printBookings(String venueCode) {
