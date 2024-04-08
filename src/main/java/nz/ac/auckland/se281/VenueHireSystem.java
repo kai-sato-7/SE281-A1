@@ -97,6 +97,19 @@ public class VenueHireSystem {
       MessageCli.BOOKING_NOT_MADE_NO_VENUES.printMessage();
       return;
     }
+
+    String venueName = "";
+    for (String[] i : this.venues) {
+      if (i[1] == options[0]) {
+        venueName = i[0];
+        break;
+      }
+    }
+
+    if (venueName == "") {
+      MessageCli.BOOKING_NOT_MADE_VENUE_NOT_FOUND.printMessage(options[0]);
+      return;
+    }
   }
 
   public void printBookings(String venueCode) {
