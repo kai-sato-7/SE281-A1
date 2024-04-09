@@ -7,6 +7,7 @@ import nz.ac.auckland.se281.Types.FloralType;
 public class VenueHireSystem {
 
   private ArrayList<Venue> venues = new ArrayList<Venue>();
+  private ArrayList<Booking> bookings = new ArrayList<Booking>();
   private String systemDate = "";
 
   public VenueHireSystem() {
@@ -134,6 +135,7 @@ public class VenueHireSystem {
     }
 
     String bookingReference = BookingReferenceGenerator.generateBookingReference();
+    this.bookings.add(new Booking(bookingReference, options[0], options[1], options[2], options[3]));
     MessageCli.MAKE_BOOKING_SUCCESSFUL.printMessage(bookingReference, venue.getName(), options[1], options[3]);
   }
 
