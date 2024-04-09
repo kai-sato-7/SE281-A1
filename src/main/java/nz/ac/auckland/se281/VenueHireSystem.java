@@ -148,7 +148,20 @@ public class VenueHireSystem {
   }
 
   public void printBookings(String venueCode) {
-    // TODO implement this method
+    for (Venue i : this.venues) {
+      if (i.getCode().equals(venueCode)) {
+        MessageCli.PRINT_BOOKINGS_HEADER.printMessage(i.getName());
+        if (i.getBookings().size() == 0) {
+          MessageCli.PRINT_BOOKINGS_NONE.printMessage(i.getName());
+        } else {
+          for (Booking j : i.getBookings()) {
+            MessageCli.PRINT_BOOKINGS_ENTRY.printMessage(j.getBookingReference(), j.getDate());
+          }
+        }
+        return;
+      }
+    }
+    MessageCli.PRINT_BOOKINGS_VENUE_NOT_FOUND.printMessage(venueCode);
   }
 
   public void addCateringService(String bookingReference, CateringType cateringType) {
