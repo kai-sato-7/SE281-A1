@@ -6,7 +6,7 @@ import nz.ac.auckland.se281.Types.FloralType;
 
 public class VenueHireSystem {
 
-  private ArrayList<String[]> venues = new ArrayList<String[]>();
+  private ArrayList<Venue> venues = new ArrayList<Venue>();
   private String systemDate = "";
 
   public VenueHireSystem() {
@@ -16,28 +16,30 @@ public class VenueHireSystem {
     if (this.venues.size() == 0) {
       MessageCli.NO_VENUES.printMessage();
     } else if (this.venues.size() == 1) {
-      String venue[] = this.venues.get(0);
+      Venue venue = this.venues.get(0);
       MessageCli.NUMBER_VENUES.printMessage("is", "one", "");
-      MessageCli.VENUE_ENTRY.printMessage(venue[0], venue[1], venue[2], venue[3]);
+      MessageCli.VENUE_ENTRY.printMessage(venue.getName(), venue.getCode(), String.valueOf(venue.getCapacity()),
+          String.valueOf(venue.getHireFee()));
     } else if (this.venues.size() < 10) {
       String numbers[] = {
           "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"
       };
       MessageCli.NUMBER_VENUES.printMessage("are", numbers[this.venues.size()], "s");
-      for (String[] i : this.venues) {
-        MessageCli.VENUE_ENTRY.printMessage(i[0], i[1], i[2], i[3]);
+      for (Venue i : this.venues) {
+        MessageCli.VENUE_ENTRY.printMessage(i.getName(), i.getCode(), String.valueOf(i.getCapacity()),
+            String.valueOf(i.getHireFee()));
       }
     } else {
       MessageCli.NUMBER_VENUES.printMessage("are", String.valueOf(this.venues.size()), "s");
-      for (String[] i : this.venues) {
-        MessageCli.VENUE_ENTRY.printMessage(i[0], i[1], i[2], i[3]);
+      for (Venue i : this.venues) {
+        MessageCli.VENUE_ENTRY.printMessage(i.getName(), i.getCode(), String.valueOf(i.getCapacity()),
+            String.valueOf(i.getHireFee()));
       }
     }
   }
 
   public void createVenue(
       String venueName, String venueCode, String capacityInput, String hireFeeInput) {
-    String venue[] = { venueName.trim(), venueCode.trim(), capacityInput, hireFeeInput };
 
     if (venueName.trim() == "") { // Checks if venue name is empty or spaces only
       MessageCli.VENUE_NOT_CREATED_EMPTY_NAME.printMessage();
@@ -64,14 +66,15 @@ public class VenueHireSystem {
       return;
     }
 
-    for (String[] i : this.venues) { // Checks if venue code is already used by existing venues
-      if (i[1].equals(venueCode)) {
-        MessageCli.VENUE_NOT_CREATED_CODE_EXISTS.printMessage(venueCode, i[0]);
+    for (Venue i : this.venues) { // Checks if venue code is already used by existing venues
+      if (i.getCode().equals(venueCode)) {
+        MessageCli.VENUE_NOT_CREATED_CODE_EXISTS.printMessage(venueCode, i.getName());
         return;
       }
     }
 
-    this.venues.add(venue); // Executes if all input format checks pass
+    this.venues.add(new Venue(venueName, venueCode, capacityInput, hireFeeInput)); // Executes if all input format
+                                                                                   // checks pass
     MessageCli.VENUE_SUCCESSFULLY_CREATED.printMessage(venueName, venueCode);
   }
 
@@ -98,9 +101,9 @@ public class VenueHireSystem {
       return;
     }
 
-    String[] venue = null;
-    for (String[] i : this.venues) {
-      if (i[1].equals(options[0])) {
+    Venue venue = null;
+    for (Venue i : this.venues) {
+      if (i.getCode().equals(options[0])) {
         venue = i;
         break;
       }
@@ -120,17 +123,18 @@ public class VenueHireSystem {
       return;
     }
 
-    int quarterCapacity = Integer.parseInt(venue[2]) / 4;
-    if (Integer.parseInt(options[3]) < quarterCapacity) {
-      MessageCli.BOOKING_ATTENDEES_ADJUSTED.printMessage(options[3], String.valueOf(quarterCapacity), venue[2]);
-      options[3] = String.valueOf(quarterCapacity);
-    } else if (Integer.parseInt(options[3]) > Integer.parseInt(venue[2])) {
-      MessageCli.BOOKING_ATTENDEES_ADJUSTED.printMessage(options[3], venue[2], venue[2]);
-      options[3] = venue[2];
+    String quarterCapacity = String.valueOf(venue.getCapacity() / 4);
+    String capacity = String.valueOf(venue.getCapacity());
+    if (Integer.parseInt(options[3]) < venue.getCapacity() / 4) {
+      MessageCli.BOOKING_ATTENDEES_ADJUSTED.printMessage(options[3], quarterCapacity, capacity);
+      options[3] = quarterCapacity;
+    } else if (Integer.parseInt(options[3]) > venue.getCapacity()) {
+      MessageCli.BOOKING_ATTENDEES_ADJUSTED.printMessage(options[3], capacity, capacity);
+      options[3] = capacity;
     }
 
     String bookingReference = BookingReferenceGenerator.generateBookingReference();
-    MessageCli.MAKE_BOOKING_SUCCESSFUL.printMessage(bookingReference, venue[0], options[1], options[3]);
+    MessageCli.MAKE_BOOKING_SUCCESSFUL.printMessage(bookingReference, venue.getName(), options[1], options[3]);
   }
 
   public void printBookings(String venueCode) {
