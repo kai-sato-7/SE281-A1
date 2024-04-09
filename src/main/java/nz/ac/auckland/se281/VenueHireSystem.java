@@ -98,15 +98,14 @@ public class VenueHireSystem {
       return;
     }
 
-    String venueName = "";
+    String[] venue = null;
     for (String[] i : this.venues) {
-      if (i[1] == options[0]) {
-        venueName = i[0];
+      if (i[1].equals(options[0])) {
+        venue = i;
         break;
       }
     }
-
-    if (venueName == "") {
+    if (venue == null) {
       MessageCli.BOOKING_NOT_MADE_VENUE_NOT_FOUND.printMessage(options[0]);
       return;
     }
@@ -115,11 +114,23 @@ public class VenueHireSystem {
     String systemDateYMD = systemDateArray[2] + systemDateArray[1] + systemDateArray[0];
     String[] bookingDateArray = options[1].split("/");
     String bookingDateYMD = bookingDateArray[2] + bookingDateArray[1] + bookingDateArray[0];
-    System.out.println(systemDateYMD + " " + bookingDateYMD);
+
     if (systemDateYMD.compareTo(bookingDateYMD) > 0) {
       MessageCli.BOOKING_NOT_MADE_PAST_DATE.printMessage(options[1], this.systemDate);
       return;
     }
+
+    int quarterCapacity = Integer.parseInt(venue[2]) / 4;
+    if (Integer.parseInt(options[3]) < quarterCapacity) {
+      MessageCli.BOOKING_ATTENDEES_ADJUSTED.printMessage(options[3], String.valueOf(quarterCapacity), venue[2]);
+      options[3] = String.valueOf(quarterCapacity);
+    } else if (Integer.parseInt(options[3]) > Integer.parseInt(venue[2])) {
+      MessageCli.BOOKING_ATTENDEES_ADJUSTED.printMessage(options[3], venue[2], venue[2]);
+      options[3] = venue[2];
+    }
+
+    String bookingReference = BookingReferenceGenerator.generateBookingReference();
+    MessageCli.MAKE_BOOKING_SUCCESSFUL.printMessage(bookingReference, venue[0], options[1], options[3]);
   }
 
   public void printBookings(String venueCode) {
