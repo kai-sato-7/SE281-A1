@@ -124,6 +124,13 @@ public class VenueHireSystem {
       return;
     }
 
+    for (Booking i : this.bookings) {
+      if (i.getVenueCode().equals(options[0]) && i.getDate().equals(options[1])) {
+        MessageCli.BOOKING_NOT_MADE_VENUE_ALREADY_BOOKED.printMessage(venue.getName(), options[1]);
+        return;
+      }
+    }
+
     String quarterCapacity = String.valueOf(venue.getCapacity() / 4);
     String capacity = String.valueOf(venue.getCapacity());
     if (Integer.parseInt(options[3]) < venue.getCapacity() / 4) {
