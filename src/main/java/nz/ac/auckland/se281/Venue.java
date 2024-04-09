@@ -10,7 +10,7 @@ public class Venue {
   private String code;
   private int capacity;
   private int hireFee;
-  private String nextAvailableDate;
+  private String nextAvailableDate = "";
   private ArrayList<String> bookingDates = new ArrayList<String>();
   private ArrayList<Booking> bookings = new ArrayList<Booking>();
 
@@ -63,6 +63,10 @@ public class Venue {
     this.bookingDates.add(date);
     this.updateNextAvailableDate(systemDate);
     return booking.getBookingReference();
+  }
+
+  public String getNextAvailableDate() {
+    return this.nextAvailableDate;
   }
 
   public void updateNextAvailableDate(String systemDate) {

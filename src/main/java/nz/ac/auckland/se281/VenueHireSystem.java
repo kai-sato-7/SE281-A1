@@ -19,7 +19,7 @@ public class VenueHireSystem {
       Venue venue = this.venues.get(0);
       MessageCli.NUMBER_VENUES.printMessage("is", "one", "");
       MessageCli.VENUE_ENTRY.printMessage(venue.getName(), venue.getCode(), String.valueOf(venue.getCapacity()),
-          String.valueOf(venue.getHireFee()));
+          String.valueOf(venue.getHireFee()), venue.getNextAvailableDate());
     } else if (this.venues.size() < 10) {
       String numbers[] = {
           "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"
@@ -27,13 +27,13 @@ public class VenueHireSystem {
       MessageCli.NUMBER_VENUES.printMessage("are", numbers[this.venues.size()], "s");
       for (Venue i : this.venues) {
         MessageCli.VENUE_ENTRY.printMessage(i.getName(), i.getCode(), String.valueOf(i.getCapacity()),
-            String.valueOf(i.getHireFee()));
+            String.valueOf(i.getHireFee()), i.getNextAvailableDate());
       }
     } else {
       MessageCli.NUMBER_VENUES.printMessage("are", String.valueOf(this.venues.size()), "s");
       for (Venue i : this.venues) {
         MessageCli.VENUE_ENTRY.printMessage(i.getName(), i.getCode(), String.valueOf(i.getCapacity()),
-            String.valueOf(i.getHireFee()));
+            String.valueOf(i.getHireFee()), i.getNextAvailableDate());
       }
     }
   }
