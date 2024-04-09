@@ -81,6 +81,10 @@ public class VenueHireSystem {
   public void setSystemDate(String dateInput) {
     this.systemDate = dateInput;
     MessageCli.DATE_SET.printMessage(dateInput);
+
+    for (Venue i : this.venues) {
+      i.updateNextAvailableDate(dateInput);
+    }
   }
 
   public void printSystemDate() {
@@ -139,7 +143,7 @@ public class VenueHireSystem {
       options[3] = capacity;
     }
 
-    String bookingReference = venue.addBooking(options[1], options[2], options[3]);
+    String bookingReference = venue.addBooking(options[1], options[2], options[3], systemDate);
     MessageCli.MAKE_BOOKING_SUCCESSFUL.printMessage(bookingReference, venue.getName(), options[1], options[3]);
   }
 
