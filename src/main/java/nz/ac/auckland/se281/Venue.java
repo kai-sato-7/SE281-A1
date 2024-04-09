@@ -1,11 +1,14 @@
 package nz.ac.auckland.se281;
 
+import java.util.ArrayList;
+
 public class Venue {
 
     private String name;
     private String code;
     private int capacity;
     private int hireFee;
+    private ArrayList<Booking> bookings = new ArrayList<Booking>();
 
     public Venue(String name, String code, String capacity, String hireFee) {
         this.name = name;
@@ -44,5 +47,15 @@ public class Venue {
 
     public void setHireFee(int hireFee) {
         this.hireFee = hireFee;
+    }
+
+    public ArrayList<Booking> getBookings() {
+        return this.bookings;
+    }
+
+    public String addBooking(String date, String email, String attendees) {
+        Booking booking = new Booking(date, email, attendees);
+        this.bookings.add(booking);
+        return booking.getBookingReference();
     }
 }

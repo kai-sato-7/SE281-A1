@@ -7,7 +7,6 @@ import nz.ac.auckland.se281.Types.FloralType;
 public class VenueHireSystem {
 
   private ArrayList<Venue> venues = new ArrayList<Venue>();
-  private ArrayList<Booking> bookings = new ArrayList<Booking>();
   private String systemDate = "";
 
   public VenueHireSystem() {
@@ -106,6 +105,12 @@ public class VenueHireSystem {
     for (Venue i : this.venues) {
       if (i.getCode().equals(options[0])) {
         venue = i;
+        for (Booking j : i.getBookings()) {
+          if (j.getDate().equals(options[1])) {
+            MessageCli.BOOKING_NOT_MADE_VENUE_ALREADY_BOOKED.printMessage(venue.getName(), options[1]);
+            return;
+          }
+        }
         break;
       }
     }
@@ -124,13 +129,6 @@ public class VenueHireSystem {
       return;
     }
 
-    for (Booking i : this.bookings) {
-      if (i.getVenueCode().equals(options[0]) && i.getDate().equals(options[1])) {
-        MessageCli.BOOKING_NOT_MADE_VENUE_ALREADY_BOOKED.printMessage(venue.getName(), options[1]);
-        return;
-      }
-    }
-
     String quarterCapacity = String.valueOf(venue.getCapacity() / 4);
     String capacity = String.valueOf(venue.getCapacity());
     if (Integer.parseInt(options[3]) < venue.getCapacity() / 4) {
@@ -141,8 +139,7 @@ public class VenueHireSystem {
       options[3] = capacity;
     }
 
-    String bookingReference = BookingReferenceGenerator.generateBookingReference();
-    this.bookings.add(new Booking(bookingReference, options[0], options[1], options[2], options[3]));
+    String bookingReference = venue.addBooking(options[1], options[2], options[3]);
     MessageCli.MAKE_BOOKING_SUCCESSFUL.printMessage(bookingReference, venue.getName(), options[1], options[3]);
   }
 
