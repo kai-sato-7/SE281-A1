@@ -58,7 +58,7 @@ public class Venue {
   }
 
   public String addBooking(String date, String email, String attendees, String systemDate) {
-    Booking booking = new Booking(date, email, attendees);
+    Booking booking = new Booking(systemDate, date, email, attendees);
     this.bookings.add(booking);
     this.bookingDates.add(date);
     this.updateNextAvailableDate(systemDate);

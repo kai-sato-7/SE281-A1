@@ -5,14 +5,16 @@ import java.util.ArrayList;
 public class Booking {
 
   private String bookingReference;
-  private String date;
+  private String bookingDate;
+  private String partyDate;
   private String email;
   private Integer attendees;
   private ArrayList<Service> services = new ArrayList<Service>();
 
-  public Booking(String date, String email, String attendees) {
+  public Booking(String bookingDate, String partyDate, String email, String attendees) {
     this.bookingReference = BookingReferenceGenerator.generateBookingReference();
-    this.date = date;
+    this.bookingDate = bookingDate;
+    this.partyDate = partyDate;
     this.email = email;
     this.attendees = Integer.parseInt(attendees);
   }
@@ -21,12 +23,20 @@ public class Booking {
     return this.bookingReference;
   }
 
-  public String getDate() {
-    return this.date;
+  public String getBookingDate() {
+    return this.bookingDate;
   }
 
-  public void setDate(String date) {
-    this.date = date;
+  public void setBookingDate(String bookingDate) {
+    this.bookingDate = bookingDate;
+  }
+
+  public String getPartyDate() {
+    return this.partyDate;
+  }
+
+  public void setPartyDate(String partyDate) {
+    this.partyDate = partyDate;
   }
 
   public String getEmail() {

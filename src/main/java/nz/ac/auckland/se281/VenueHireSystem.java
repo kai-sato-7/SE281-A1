@@ -110,7 +110,7 @@ public class VenueHireSystem {
       if (i.getCode().equals(options[0])) {
         venue = i;
         for (Booking j : i.getBookings()) {
-          if (j.getDate().equals(options[1])) {
+          if (j.getPartyDate().equals(options[1])) {
             MessageCli.BOOKING_NOT_MADE_VENUE_ALREADY_BOOKED.printMessage(venue.getName(), options[1]);
             return;
           }
@@ -155,7 +155,7 @@ public class VenueHireSystem {
           MessageCli.PRINT_BOOKINGS_NONE.printMessage(i.getName());
         } else {
           for (Booking j : i.getBookings()) {
-            MessageCli.PRINT_BOOKINGS_ENTRY.printMessage(j.getBookingReference(), j.getDate());
+            MessageCli.PRINT_BOOKINGS_ENTRY.printMessage(j.getBookingReference(), j.getPartyDate());
           }
         }
         return;
