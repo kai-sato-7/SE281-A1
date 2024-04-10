@@ -168,8 +168,10 @@ public class VenueHireSystem {
     for (Venue i : this.venues) {
       for (Booking j : i.getBookings()) {
         if (j.getBookingReference().equals(bookingReference)) {
-          MessageCli.ADD_SERVICE_SUCCESSFUL.printMessage(String.format("Catering (%s)", cateringType.getName()),
-              bookingReference);
+          CateringService cateringService = new CateringService(cateringType.getName(), cateringType.getCostPerPerson(),
+              j.getAttendees());
+          j.addService(cateringService);
+          MessageCli.ADD_SERVICE_SUCCESSFUL.printMessage(cateringService.getDescription(), bookingReference);
           return;
         }
       }

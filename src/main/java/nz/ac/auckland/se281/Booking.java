@@ -1,17 +1,20 @@
 package nz.ac.auckland.se281;
 
+import java.util.ArrayList;
+
 public class Booking {
 
   private String bookingReference;
   private String date;
   private String email;
-  private String attendees;
+  private Integer attendees;
+  private ArrayList<Service> services = new ArrayList<Service>();
 
   public Booking(String date, String email, String attendees) {
     this.bookingReference = BookingReferenceGenerator.generateBookingReference();
     this.date = date;
     this.email = email;
-    this.attendees = attendees;
+    this.attendees = Integer.parseInt(attendees);
   }
 
   public String getBookingReference() {
@@ -34,11 +37,19 @@ public class Booking {
     this.email = email;
   }
 
-  public String getAttendees() {
+  public Integer getAttendees() {
     return this.attendees;
   }
 
-  public void setAttendees(String attendees) {
+  public void setAttendees(Integer attendees) {
     this.attendees = attendees;
+  }
+
+  public void addService(Service service) {
+    this.services.add(service);
+  }
+
+  public ArrayList<Service> getServices(Service service) {
+    return this.services;
   }
 }
