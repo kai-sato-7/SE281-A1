@@ -178,7 +178,15 @@ public class VenueHireSystem {
   }
 
   public void addServiceMusic(String bookingReference) {
-    // TODO implement this method
+    for (Venue i : this.venues) {
+      for (Booking j : i.getBookings()) {
+        if (j.getBookingReference().equals(bookingReference)) {
+          MessageCli.ADD_SERVICE_SUCCESSFUL.printMessage("Music", bookingReference);
+          return;
+        }
+      }
+    }
+    MessageCli.SERVICE_NOT_ADDED_BOOKING_NOT_FOUND.printMessage("Music", bookingReference);
   }
 
   public void addServiceFloral(String bookingReference, FloralType floralType) {
