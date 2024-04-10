@@ -165,7 +165,16 @@ public class VenueHireSystem {
   }
 
   public void addCateringService(String bookingReference, CateringType cateringType) {
-    // TODO implement this method
+    for (Venue i : this.venues) {
+      for (Booking j : i.getBookings()) {
+        if (j.getBookingReference().equals(bookingReference)) {
+          MessageCli.ADD_SERVICE_SUCCESSFUL.printMessage(String.format("Catering (%s)", cateringType.getName()),
+              bookingReference);
+          return;
+        }
+      }
+    }
+    MessageCli.SERVICE_NOT_ADDED_BOOKING_NOT_FOUND.printMessage("Catering", bookingReference);
   }
 
   public void addServiceMusic(String bookingReference) {
