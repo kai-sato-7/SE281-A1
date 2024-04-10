@@ -197,8 +197,9 @@ public class VenueHireSystem {
     for (Venue i : this.venues) {
       for (Booking j : i.getBookings()) {
         if (j.getBookingReference().equals(bookingReference)) {
-          MessageCli.ADD_SERVICE_SUCCESSFUL.printMessage(String.format("Floral (%s)", floralType.getName()),
-              bookingReference);
+          FloralService floralService = new FloralService(floralType.getName(), floralType.getCost());
+          j.addService(floralService);
+          MessageCli.ADD_SERVICE_SUCCESSFUL.printMessage(floralService.getDescription(), bookingReference);
           return;
         }
       }
