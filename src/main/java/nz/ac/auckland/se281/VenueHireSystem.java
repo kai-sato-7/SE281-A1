@@ -183,6 +183,8 @@ public class VenueHireSystem {
     for (Venue i : this.venues) {
       for (Booking j : i.getBookings()) {
         if (j.getBookingReference().equals(bookingReference)) {
+          MusicService musicService = new MusicService();
+          j.addService(musicService);
           MessageCli.ADD_SERVICE_SUCCESSFUL.printMessage("Music", bookingReference);
           return;
         }
