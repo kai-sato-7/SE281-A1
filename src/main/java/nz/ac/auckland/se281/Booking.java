@@ -63,7 +63,7 @@ public class Booking {
     return this.services;
   }
 
-  public Integer getTotalCost() {
+  public Integer getTotalServiceCost() {
     Integer totalCost = 0;
     for (Service service : this.services) {
       totalCost += service.getCost();

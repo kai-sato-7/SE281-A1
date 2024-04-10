@@ -208,6 +208,27 @@ public class VenueHireSystem {
   }
 
   public void viewInvoice(String bookingReference) {
-    // TODO implement this method
+    for (Venue i : this.venues) {
+      for (Booking j : i.getBookings()) {
+        if (j.getBookingReference().equals(bookingReference)) {
+          MessageCli.INVOICE_CONTENT_TOP_HALF.printMessage(bookingReference,
+              j.getEmail(), j.getBookingDate(),
+              j.getPartyDate(), String.valueOf(j.getAttendees()), i.getName());
+          MessageCli.INVOICE_CONTENT_VENUE_FEE.printMessage(String.valueOf(i.getHireFee()));
+          for (Service k : j.getServices()) {
+            if (k instanceof CateringService) {
+              MessageCli.INVOICE_CONTENT_CATERING_ENTRY.printMessage(k.getName(), String.valueOf(k.getCost()));
+            } else if (k instanceof MusicService) {
+              MessageCli.INVOICE_CONTENT_MUSIC_ENTRY.printMessage(String.valueOf(k.getCost()));
+            } else if (k instanceof FloralService) {
+              MessageCli.INVOICE_CONTENT_FLORAL_ENTRY.printMessage(k.getName(), String.valueOf(k.getCost()));
+            }
+          }
+          MessageCli.INVOICE_CONTENT_BOTTOM_HALF.printMessage(String.valueOf(j.getTotalServiceCost() + i.getHireFee()));
+          return;
+        }
+      }
+    }
+    MessageCli.VIEW_INVOICE_BOOKING_NOT_FOUND.printMessage(bookingReference);
   }
 }
