@@ -59,7 +59,15 @@ public class Booking {
     this.services.add(service);
   }
 
-  public ArrayList<Service> getServices(Service service) {
+  public ArrayList<Service> getServices() {
     return this.services;
+  }
+
+  public Integer getTotalCost() {
+    Integer totalCost = 0;
+    for (Service service : this.services) {
+      totalCost += service.getCost();
+    }
+    return totalCost;
   }
 }
