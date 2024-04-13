@@ -1,6 +1,6 @@
 package nz.ac.auckland.se281;
 
-public abstract class Service {
+public abstract class Service { // Defines an abstract class for other services to extend
 
   private String name;
   private Integer cost;

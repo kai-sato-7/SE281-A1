@@ -73,7 +73,8 @@ public class Venue {
     this.nextAvailableDate = systemDate;
     this.bookingDates
         .sort((String a, String b) -> (a.split("/")[0] + a.split("/")[1] + a.split("/")[2])
-            .compareTo(b.split("/")[0] + b.split("/")[1] + b.split("/")[2]));
+            .compareTo(b.split("/")[0] + b.split("/")[1] + b.split("/")[2])); // Sorts the booking dates in ascending
+                                                                              // order
 
     for (String i : this.bookingDates) {
       if (i.compareTo(this.nextAvailableDate) == 0) {
@@ -85,7 +86,8 @@ public class Venue {
     System.out.println(this.nextAvailableDate);
   }
 
-  public String getNextDay(String date) {
+  public String getNextDay(String date) { // Returns the next day from the given date using Calender for month
+                                          // transitions
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     Calendar c = Calendar.getInstance();
     try {

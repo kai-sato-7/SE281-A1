@@ -82,7 +82,7 @@ public class VenueHireSystem {
     this.systemDate = dateInput;
     MessageCli.DATE_SET.printMessage(dateInput);
 
-    for (Venue i : this.venues) {
+    for (Venue i : this.venues) { // Updates next available date for all venues
       i.updateNextAvailableDate(dateInput);
     }
   }
@@ -106,7 +106,7 @@ public class VenueHireSystem {
     }
 
     Venue venue = null;
-    for (Venue i : this.venues) {
+    for (Venue i : this.venues) { // Checks if venue exists and if it's not already booked on the specified date
       if (i.getCode().equals(options[0])) {
         venue = i;
         for (Booking j : i.getBookings()) {
@@ -128,14 +128,15 @@ public class VenueHireSystem {
     String[] bookingDateArray = options[1].split("/");
     String bookingDateYMD = bookingDateArray[2] + bookingDateArray[1] + bookingDateArray[0];
 
-    if (systemDateYMD.compareTo(bookingDateYMD) > 0) {
+    if (systemDateYMD.compareTo(bookingDateYMD) > 0) { // Checks if booking date is in the past using YMD format
       MessageCli.BOOKING_NOT_MADE_PAST_DATE.printMessage(options[1], this.systemDate);
       return;
     }
 
     String quarterCapacity = String.valueOf(venue.getCapacity() / 4);
     String capacity = String.valueOf(venue.getCapacity());
-    if (Integer.parseInt(options[3]) < venue.getCapacity() / 4) {
+    if (Integer.parseInt(options[3]) < venue.getCapacity() / 4) { // Adjust attendees if less than 25% capacity or more
+                                                                  // than capacity
       MessageCli.BOOKING_ATTENDEES_ADJUSTED.printMessage(options[3], quarterCapacity, capacity);
       options[3] = quarterCapacity;
     } else if (Integer.parseInt(options[3]) > venue.getCapacity()) {
@@ -165,7 +166,7 @@ public class VenueHireSystem {
   }
 
   public void addCateringService(String bookingReference, CateringType cateringType) {
-    for (Venue i : this.venues) {
+    for (Venue i : this.venues) { // Adds catering service to booking if booking exists
       for (Booking j : i.getBookings()) {
         if (j.getBookingReference().equals(bookingReference)) {
           CateringService cateringService = new CateringService(cateringType.getName(), cateringType.getCostPerPerson(),
@@ -180,7 +181,7 @@ public class VenueHireSystem {
   }
 
   public void addServiceMusic(String bookingReference) {
-    for (Venue i : this.venues) {
+    for (Venue i : this.venues) { // Adds music service to booking if booking exists
       for (Booking j : i.getBookings()) {
         if (j.getBookingReference().equals(bookingReference)) {
           MusicService musicService = new MusicService();
@@ -194,7 +195,7 @@ public class VenueHireSystem {
   }
 
   public void addServiceFloral(String bookingReference, FloralType floralType) {
-    for (Venue i : this.venues) {
+    for (Venue i : this.venues) { // Adds floral service to booking if booking exists
       for (Booking j : i.getBookings()) {
         if (j.getBookingReference().equals(bookingReference)) {
           FloralService floralService = new FloralService(floralType.getName(), floralType.getCost());
@@ -215,7 +216,7 @@ public class VenueHireSystem {
               j.getEmail(), j.getBookingDate(),
               j.getPartyDate(), String.valueOf(j.getAttendees()), i.getName());
           MessageCli.INVOICE_CONTENT_VENUE_FEE.printMessage(String.valueOf(i.getHireFee()));
-          for (Service k : j.getServices()) {
+          for (Service k : j.getServices()) { // Prints all services in the booking, if any
             if (k instanceof CateringService) {
               MessageCli.INVOICE_CONTENT_CATERING_ENTRY.printMessage(k.getName(), String.valueOf(k.getCost()));
             } else if (k instanceof MusicService) {
