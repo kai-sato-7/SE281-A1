@@ -63,8 +63,9 @@ public class Booking {
     return this.services;
   }
 
-  public Integer getTotalServiceCost() { // Returns the total cost of all services in the booking, does not include
-                                         // venue hire fee
+  // Returns the total cost of all services in the booking, does not include venue
+  // hire fee
+  public Integer getTotalServiceCost() {
     Integer totalCost = 0;
     for (Service service : this.services) {
       totalCost += service.getCost();
