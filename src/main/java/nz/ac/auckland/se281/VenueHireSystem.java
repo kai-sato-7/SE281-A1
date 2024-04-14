@@ -12,7 +12,7 @@ public class VenueHireSystem {
   public VenueHireSystem() {
   }
 
-  public void printVenues() {
+  public void printVenues() { // Prints all venues in the system
     if (this.venues.size() == 0) {
       MessageCli.NO_VENUES.printMessage();
     } else if (this.venues.size() == 1) {
@@ -156,7 +156,7 @@ public class VenueHireSystem {
         bookingReference, venue.getName(), options[1], options[3]);
   }
 
-  public void printBookings(String venueCode) {
+  public void printBookings(String venueCode) { // Prints all bookings for a venue
     for (Venue i : this.venues) {
       if (i.getCode().equals(venueCode)) {
         MessageCli.PRINT_BOOKINGS_HEADER.printMessage(i.getName());
